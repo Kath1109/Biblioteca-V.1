@@ -1,0 +1,97 @@
+@startuml Biblioteca
+title Diagrama de Clases Biblioteca V1
+
+' Clases
+class Book{
+    - String title
+    - int idBook
+    - String author
+    - String yearPublic
+    - boolean availability
+    + getters()
+    + setters()
+    + Book()
+}
+class BookList{
+    -ArrayList<Book> bookList
+    +BookList()
+    +addBook(Book book)
+    +deleteBook(int id)
+    +searchById(int id): Book
+    +getLisDisponible(): ArrayList<Book>
+    +getList:ArrayList<Book>
+
+}
+
+class User {
+    - String nameUser
+    - int idUser
+    +getters()
+    +setters()
+}
+
+class UserList{
+    -ArrayList<User> userList
+    +UserList()
+    +addUser(User user)
+    +deleteUser(int id)
+    +searchById(int ud): User
+    +getUserList():ArrayList<UserList>
+}
+
+class Loan{
+    - User user
+    - Book book
+    - int idLoan
+    + Loan()
+    +getters()
+    + setters()
+}
+
+class LoanList{
+    - ArrayList<Loan> loanList
+    +LoanList()
+    +addLoan(Loan loan)
+    +deleteLoan(int id)
+    +searchById(int id):Loan
+    +getLoanList(): ArrayList<Loan>
+}
+
+class App{
+    - BookList bookList
+    - UserList userList
+    - LoanList loanList
+    + App()
+    +registerBook()
+    +registerUser()
+    +getListBookDisponible:ArrayList<Book>
+    +registerLoad(User user, Book book)
+    +getLoadList():ArrayList<Load>
+    +returnBook(Book book)
+    +changeDisponibility(Book book, boolean disponibility)
+    +validateUser(User user): boolean
+    +validateBook(Book book): boolean
+}
+
+' RELACIONES
+Book "0..*" --o "1" BookList 
+BookList "1"--*"1" App
+User "0..*"--o "1" UserList
+UserList "1"--*"1" App
+User "1"--"0..*" Loan
+Loan "0..*"--o "1" LoanList
+LoanList "1"--*"1" App
+Book "1"--"0..*" Loan
+
+
+' Definir la apariencia general
+skinparam classAttributeIconSize 8
+skinparam classFontSize 16
+skinparam classFontName "Arial"
+skinparam classBorderColor #212837
+skinparam classHeaderFontColor #FFFFFF
+skinparam classHeaderBackgroundColor #8BB9E6
+skinparam classArrowColor #6E95C2
+skinparam linetype ortho
+
+@enduml
